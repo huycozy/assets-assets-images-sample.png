@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 8),
-            Text(
+            SelectableText(
               'Discover and learn about all available widgets in Flutter framework',
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: Theme.of(
@@ -36,11 +36,14 @@ class HomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                children: [
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 48.0),
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  childAspectRatio: 2,
+                  children: [
                   _buildCategoryCard(
                     context,
                     'Basic Widgets',
@@ -90,6 +93,7 @@ class HomeScreen extends StatelessWidget {
                     const InteractiveWidgetsScreen(),
                   ),
                 ],
+                ),
               ),
             ),
           ],
@@ -118,19 +122,19 @@ class HomeScreen extends StatelessWidget {
           );
         },
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(6),
                 ),
-                child: Icon(icon, size: 32, color: color),
+                child: Icon(icon, size: 20, color: color),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 6),
               Text(
                 title,
                 style: Theme.of(
@@ -138,7 +142,7 @@ class HomeScreen extends StatelessWidget {
                 ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 1),
               Text(
                 description,
                 style: Theme.of(context).textTheme.bodySmall,
