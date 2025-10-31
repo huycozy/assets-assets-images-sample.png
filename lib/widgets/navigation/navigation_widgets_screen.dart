@@ -43,6 +43,18 @@ class NavigationWidgetsScreen extends StatelessWidget {
             'A side navigation bar that displays a vertical row of navigation items.',
             _buildNavigationRailExample(),
           ),
+          _buildWidgetSection(
+            context,
+            'MenuAnchor',
+            'An anchor that displays a menu when pressed or long-pressed.',
+            _buildMenuAnchorExample(),
+          ),
+          _buildWidgetSection(
+            context,
+            'MenuBar',
+            'A menu bar that displays cascading menus with keyboard shortcuts.',
+            _buildMenuBarExample(),
+          ),
         ],
       ),
     );
@@ -426,4 +438,220 @@ class NavigationWidgetsScreen extends StatelessWidget {
       ],
     );
   }
+
+  Widget _buildMenuAnchorExample() {
+    return Builder(
+      builder: (context) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            MenuAnchor(
+              builder: (BuildContext context, MenuController controller, Widget? child) {
+                return IconButton(
+                  onPressed: () {
+                    if (controller.isOpen) {
+                      controller.close();
+                    } else {
+                      controller.open();
+                    }
+                  },
+                  icon: const Icon(Icons.more_vert),
+                  tooltip: 'Show menu',
+                );
+              },
+              menuChildren: [
+                MenuItemButton(
+                  leadingIcon: const Icon(Icons.download),
+                  child: const Text('Download'),
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Download clicked')),
+                    );
+                  },
+                ),
+                MenuItemButton(
+                  leadingIcon: const Icon(Icons.share),
+                  child: const Text('Share'),
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Share clicked')),
+                    );
+                  },
+                ),
+                MenuItemButton(
+                  leadingIcon: const Icon(Icons.delete),
+                  child: const Text('Delete'),
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Delete clicked')),
+                    );
+                  },
+                ),
+                const Divider(),
+                SubmenuButton(
+                  leadingIcon: const Icon(Icons.settings),
+                  child: const Text('Settings'),
+                  menuChildren: [
+                    MenuItemButton(
+                      leadingIcon: const Icon(Icons.account_circle),
+                      child: const Text('Profile'),
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Profile settings clicked')),
+                        );
+                      },
+                    ),
+                    MenuItemButton(
+                      leadingIcon: const Icon(Icons.notifications),
+                      child: const Text('Notifications'),
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Notification settings clicked')),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const Column(
+              children: [
+                Text('MenuAnchor Example', style: TextStyle(fontWeight: FontWeight.bold)),
+                SizedBox(height: 8),
+                Text('Tap the menu icon to see options', style: TextStyle(color: Colors.grey)),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildMenuBarExample() {
+    return Builder(
+      builder: (context) {
+        return Column(
+          children: [
+            const Text('MenuBar Example (Desktop)', style: TextStyle(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 8),
+            MenuBar(
+              children: [
+                SubmenuButton(
+                  menuChildren: [
+                    MenuItemButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('New File clicked')),
+                        );
+                      },
+                      child: const Text('New File'),
+                    ),
+                    MenuItemButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Open File clicked')),
+                        );
+                      },
+                      child: const Text('Open File...'),
+                    ),
+                    const Divider(),
+                    MenuItemButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Save clicked')),
+                        );
+                      },
+                      child: const Text('Save'),
+                    ),
+                  ],
+                  child: const Text('File'),
+                ),
+                SubmenuButton(
+                  menuChildren: [
+                    MenuItemButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Undo clicked')),
+                        );
+                      },
+                      child: const Text('Undo'),
+                    ),
+                    MenuItemButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Redo clicked')),
+                        );
+                      },
+                      child: const Text('Redo'),
+                    ),
+                    const Divider(),
+                    MenuItemButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Copy clicked')),
+                        );
+                      },
+                      child: const Text('Copy'),
+                    ),
+                    MenuItemButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Paste clicked')),
+                        );
+                      },
+                      child: const Text('Paste'),
+                    ),
+                  ],
+                  child: const Text('Edit'),
+                ),
+                SubmenuButton(
+                  menuChildren: [
+                    MenuItemButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Zoom In clicked')),
+                        );
+                      },
+                      child: const Text('Zoom In'),
+                    ),
+                    MenuItemButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Zoom Out clicked')),
+                        );
+                      },
+                      child: const Text('Zoom Out'),
+                    ),
+                    MenuItemButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Reset Zoom clicked')),
+                        );
+                      },
+                      child: const Text('Reset Zoom'),
+                    ),
+                  ],
+                  child: const Text('View'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Text(
+                'MenuBar with cascading menus\nWorks best on desktop platforms',
+                style: TextStyle(fontSize: 12, color: Colors.grey),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }

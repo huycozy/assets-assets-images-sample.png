@@ -49,6 +49,12 @@ class BasicWidgetsScreen extends StatelessWidget {
             'A widget that centers its child within itself.',
             _buildCenterExample(),
           ),
+          _buildWidgetSection(
+            context,
+            'Stepper',
+            'A material design stepper that displays progress through a sequence of steps.',
+            _buildStepperExample(),
+          ),
         ],
       ),
     );
@@ -77,9 +83,6 @@ class BasicWidgetsScreen extends StatelessWidget {
             Text(description, style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 16),
             Container(
-              width: double.infinity,
-              height: 200,
-              padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(8),
@@ -271,4 +274,124 @@ class BasicWidgetsScreen extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildStepperExample() {
+    return Builder(
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            int currentStep = 0;
+
+            return Stepper(
+              currentStep: currentStep,
+              onStepTapped: (step) {
+                setState(() {
+                  currentStep = step;
+                });
+              },
+              onStepContinue: () {
+                if (currentStep < 2) {
+                  setState(() {
+                    currentStep++;
+                  });
+                }
+              },
+              onStepCancel: () {
+                if (currentStep > 0) {
+                  setState(() {
+                    currentStep--;
+                  });
+                }
+              },
+              controlsBuilder: (BuildContext context, ControlsDetails details) {
+                return Row(
+                  children: [
+                    if (currentStep > 0)
+                      TextButton(
+                        onPressed: details.onStepCancel,
+                        child: const Text('Previous'),
+                      ),
+                    const Spacer(),
+                    if (currentStep < 2)
+                      ElevatedButton(
+                        onPressed: details.onStepContinue,
+                        child: const Text('Next'),
+                      )
+                    else
+                      ElevatedButton(
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Stepper completed!')),
+                          );
+                          setState(() {
+                            currentStep = 0;
+                          });
+                        },
+                        child: const Text('Finish'),
+                      ),
+                  ],
+                );
+              },
+              steps: [
+                Step(
+                  title: const Text('Account Setup'),
+                  content: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Create your account with email and password'),
+                      SizedBox(height: 8),
+                      Text('• Enter valid email address'),
+                      Text('• Choose strong password'),
+                      Text('• Accept terms and conditions'),
+                    ],
+                  ),
+                  isActive: currentStep >= 0,
+                  state: currentStep > 0
+                      ? StepState.complete
+                      : StepState.indexed,
+                ),
+                Step(
+                  title: const Text('Personal Information'),
+                  content: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Provide your personal details'),
+                      SizedBox(height: 8),
+                      Text('• Full name'),
+                      Text('• Date of birth'),
+                      Text('• Phone number'),
+                      Text('• Address'),
+                    ],
+                  ),
+                  isActive: currentStep >= 1,
+                  state: currentStep > 1
+                      ? StepState.complete
+                      : StepState.indexed,
+                ),
+                Step(
+                  title: const Text('Preferences'),
+                  content: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Customize your experience'),
+                      SizedBox(height: 8),
+                      Text('• Theme selection'),
+                      Text('• Notification settings'),
+                      Text('• Privacy preferences'),
+                      Text('• Language and region'),
+                    ],
+                  ),
+                  isActive: currentStep >= 2,
+                  state: currentStep >= 2
+                      ? StepState.complete
+                      : StepState.indexed,
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
 }

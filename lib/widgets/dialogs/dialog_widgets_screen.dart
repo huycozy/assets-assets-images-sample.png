@@ -59,7 +59,6 @@ class DialogWidgetsScreen extends StatelessWidget {
             Text(description, style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 16),
             Container(
-              constraints: const BoxConstraints(minHeight: 200, maxHeight: 200),
               width: double.infinity,
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(

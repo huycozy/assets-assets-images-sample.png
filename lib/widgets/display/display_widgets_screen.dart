@@ -55,6 +55,24 @@ class DisplayWidgetsScreen extends StatelessWidget {
             'A thin horizontal line with padding on either side.',
             _buildDividerExample(),
           ),
+          _buildWidgetSection(
+            context,
+            'SelectableText',
+            'Text that can be selected by the user.',
+            _buildSelectableTextExample(),
+          ),
+          _buildWidgetSection(
+            context,
+            'SelectionArea',
+            'A widget that enables text selection in its child.',
+            _buildSelectionAreaExample(),
+          ),
+          _buildWidgetSection(
+            context,
+            'DataTable',
+            'A material design data table widget that displays data in rows and columns.',
+            _buildDataTableExample(),
+          ),
         ],
       ),
     );
@@ -341,6 +359,328 @@ class DisplayWidgetsScreen extends StatelessWidget {
         Divider(height: 32, thickness: 2, indent: 20, endIndent: 20),
         Text('Third item', style: TextStyle(fontSize: 16)),
       ],
+    );
+  }
+
+  Widget _buildSelectableTextExample() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Simple SelectableText:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.grey.shade100,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.grey.shade300),
+          ),
+          child: const SelectableText(
+            'This is selectable text! You can tap and drag to select this text, then copy it using the context menu or keyboard shortcuts (Ctrl+C on desktop, long press on mobile).',
+            style: TextStyle(fontSize: 14),
+          ),
+        ),
+        const SizedBox(height: 16),
+        const Text(
+          'Styled SelectableText:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.blue.shade50,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.blue.shade200),
+          ),
+          child: const SelectableText.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: 'Rich text with ',
+                  style: TextStyle(fontSize: 14, color: Colors.black),
+                ),
+                TextSpan(
+                  text: 'different styles',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue,
+                  ),
+                ),
+                TextSpan(
+                  text: ' and ',
+                  style: TextStyle(fontSize: 14, color: Colors.black),
+                ),
+                TextSpan(
+                  text: 'colors!',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontStyle: FontStyle.italic,
+                    color: Colors.red,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSelectionAreaExample() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'SelectionArea with Container:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.green.shade50,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.green.shade200),
+          ),
+          child: SelectionArea(
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(6),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.1),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '📝 SelectionArea Demo',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 8),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'This entire container is wrapped in a SelectionArea widget. You can select any text within this container, including:',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        '• This bullet point text',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                      Text(
+                        '• The heading above',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                      Text(
+                        '• Any text in this description',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                      Text(
+                        '• Numbers and symbols: 123, @#\$%',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        'Try selecting different parts of this text!',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.grey.shade100,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: const Text(
+            '💡 Tip: SelectionArea enables text selection for widgets that don\'t support it natively. It\'s perfect for making custom widgets selectable!',
+            style: TextStyle(fontSize: 12, color: Colors.grey),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDataTableExample() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: DataTable(
+        columns: const [
+          DataColumn(
+            label: Text('ID', style: TextStyle(fontWeight: FontWeight.bold)),
+            numeric: true,
+          ),
+          DataColumn(
+            label: Text('Name', style: TextStyle(fontWeight: FontWeight.bold)),
+          ),
+          DataColumn(
+            label: Text('Age', style: TextStyle(fontWeight: FontWeight.bold)),
+            numeric: true,
+          ),
+          DataColumn(
+            label: Text('Role', style: TextStyle(fontWeight: FontWeight.bold)),
+          ),
+          DataColumn(
+            label: Text(
+              'Status',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+        rows: [
+          DataRow(
+            cells: [
+              const DataCell(Text('1')),
+              const DataCell(Text('John Doe')),
+              DataCell(
+                Text('28'),
+                onTap: () {
+                  // Handle cell tap
+                },
+              ),
+              const DataCell(Text('Developer')),
+              DataCell(
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: const Text(
+                    'Active',
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ),
+              ),
+            ],
+            selected: true,
+          ),
+          DataRow(
+            cells: [
+              const DataCell(Text('2')),
+              const DataCell(Text('Jane Smith')),
+              const DataCell(Text('32')),
+              const DataCell(Text('Designer')),
+              DataCell(
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: const Text(
+                    'Active',
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          DataRow(
+            cells: [
+              const DataCell(Text('3')),
+              const DataCell(Text('Bob Johnson')),
+              const DataCell(Text('45')),
+              const DataCell(Text('Manager')),
+              DataCell(
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.orange,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: const Text(
+                    'Away',
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          DataRow(
+            cells: [
+              const DataCell(Text('4')),
+              const DataCell(Text('Alice Brown')),
+              const DataCell(Text('27')),
+              const DataCell(Text('QA Engineer')),
+              DataCell(
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: const Text(
+                    'Inactive',
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          DataRow(
+            cells: [
+              const DataCell(Text('5')),
+              const DataCell(Text('Charlie Wilson')),
+              const DataCell(Text('38')),
+              const DataCell(Text('DevOps')),
+              DataCell(
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: const Text(
+                    'Active',
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+        border: TableBorder.all(color: Colors.grey.shade300),
+        showBottomBorder: true,
+        headingRowColor: WidgetStateProperty.resolveWith((states) {
+          return Colors.grey.shade100;
+        }),
+      ),
     );
   }
 }
