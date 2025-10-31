@@ -78,6 +78,7 @@ class BasicWidgetsScreen extends StatelessWidget {
             const SizedBox(height: 16),
             Container(
               width: double.infinity,
+              height: 200,
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surfaceContainerHighest,
@@ -126,7 +127,10 @@ class BasicWidgetsScreen extends StatelessWidget {
           height: 50,
           color: Colors.red,
           child: const Center(
-            child: Text('1', style: TextStyle(color: Colors.white)),
+            child: Text(
+              '1',
+              style: TextStyle(color: Colors.white, fontSize: 14),
+            ),
           ),
         ),
         Container(
@@ -134,7 +138,10 @@ class BasicWidgetsScreen extends StatelessWidget {
           height: 50,
           color: Colors.green,
           child: const Center(
-            child: Text('2', style: TextStyle(color: Colors.white)),
+            child: Text(
+              '2',
+              style: TextStyle(color: Colors.white, fontSize: 14),
+            ),
           ),
         ),
         Container(
@@ -142,7 +149,10 @@ class BasicWidgetsScreen extends StatelessWidget {
           height: 50,
           color: Colors.blue,
           child: const Center(
-            child: Text('3', style: TextStyle(color: Colors.white)),
+            child: Text(
+              '3',
+              style: TextStyle(color: Colors.white, fontSize: 14),
+            ),
           ),
         ),
       ],
@@ -158,7 +168,10 @@ class BasicWidgetsScreen extends StatelessWidget {
           height: 40,
           color: Colors.orange,
           child: const Center(
-            child: Text('First', style: TextStyle(color: Colors.white)),
+            child: Text(
+              'First',
+              style: TextStyle(color: Colors.white, fontSize: 14),
+            ),
           ),
         ),
         Container(
@@ -166,7 +179,10 @@ class BasicWidgetsScreen extends StatelessWidget {
           height: 40,
           color: Colors.purple,
           child: const Center(
-            child: Text('Second', style: TextStyle(color: Colors.white)),
+            child: Text(
+              'Second',
+              style: TextStyle(color: Colors.white, fontSize: 14),
+            ),
           ),
         ),
         Container(
@@ -174,7 +190,10 @@ class BasicWidgetsScreen extends StatelessWidget {
           height: 40,
           color: Colors.cyan,
           child: const Center(
-            child: Text('Third', style: TextStyle(color: Colors.white)),
+            child: Text(
+              'Third',
+              style: TextStyle(color: Colors.white, fontSize: 14),
+            ),
           ),
         ),
       ],

@@ -83,13 +83,13 @@ class DisplayWidgetsScreen extends StatelessWidget {
             Text(description, style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 16),
             Container(
-              width: double.infinity,
+              constraints: const BoxConstraints(minHeight: 200, maxHeight: 400),
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: example,
+              child: IntrinsicHeight(child: example),
             ),
           ],
         ),
@@ -98,31 +98,33 @@ class DisplayWidgetsScreen extends StatelessWidget {
   }
 
   Widget _buildIconExample() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return const Wrap(
+      alignment: WrapAlignment.spaceEvenly,
+      spacing: 16,
+      runSpacing: 8,
       children: [
         Column(
           children: [
-            const Icon(Icons.favorite, color: Colors.red, size: 32),
-            const Text('Favorite'),
+            Icon(Icons.favorite, color: Colors.red, size: 32),
+            Text('Favorite', style: TextStyle(fontSize: 14)),
           ],
         ),
         Column(
           children: [
-            const Icon(Icons.star, color: Colors.amber, size: 32),
-            const Text('Star'),
+            Icon(Icons.star, color: Colors.amber, size: 32),
+            Text('Star', style: TextStyle(fontSize: 14)),
           ],
         ),
         Column(
           children: [
-            const Icon(Icons.home, color: Colors.blue, size: 32),
-            const Text('Home'),
+            Icon(Icons.home, color: Colors.blue, size: 32),
+            Text('Home', style: TextStyle(fontSize: 14)),
           ],
         ),
         Column(
           children: [
-            const Icon(Icons.settings, color: Colors.grey, size: 32),
-            const Text('Settings'),
+            Icon(Icons.settings, color: Colors.grey, size: 32),
+            Text('Settings', style: TextStyle(fontSize: 14)),
           ],
         ),
       ],
@@ -191,10 +193,12 @@ class DisplayWidgetsScreen extends StatelessWidget {
   }
 
   Widget _buildCircleAvatarExample() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return const Wrap(
+      alignment: WrapAlignment.spaceEvenly,
+      spacing: 16,
+      runSpacing: 8,
       children: [
-        const CircleAvatar(
+        CircleAvatar(
           radius: 30,
           backgroundColor: Colors.blue,
           child: Text(
@@ -206,7 +210,7 @@ class DisplayWidgetsScreen extends StatelessWidget {
             ),
           ),
         ),
-        const CircleAvatar(
+        CircleAvatar(
           radius: 30,
           backgroundImage: NetworkImage(
             'https://picsum.photos/seed/user1/60/60.jpg',
@@ -214,8 +218,8 @@ class DisplayWidgetsScreen extends StatelessWidget {
         ),
         CircleAvatar(
           radius: 30,
-          backgroundColor: Colors.green.shade400,
-          child: const Icon(Icons.person, color: Colors.white, size: 30),
+          backgroundColor: Colors.green,
+          child: Icon(Icons.person, color: Colors.white, size: 30),
         ),
       ],
     );
@@ -244,9 +248,9 @@ class DisplayWidgetsScreen extends StatelessWidget {
               children: [
                 Text(
                   'Card Title',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 4),
                 const Text(
@@ -268,25 +272,33 @@ class DisplayWidgetsScreen extends StatelessWidget {
   }
 
   Widget _buildChipExample() {
-    return Wrap(
+    return const Wrap(
       spacing: 8,
       runSpacing: 8,
       children: [
-        const Chip(label: Text('Default')),
+        Chip(label: Text('Default', style: TextStyle(fontSize: 14))),
         Chip(
-          avatar: const Icon(Icons.person, size: 16),
-          label: const Text('User'),
-          backgroundColor: Colors.blue.shade100,
+          avatar: Icon(Icons.person, size: 16),
+          label: Text('User', style: TextStyle(fontSize: 14)),
+          backgroundColor: Colors.blue,
         ),
         Chip(
-          label: const Text('Deletable'),
-          onDeleted: () {},
-          deleteIcon: const Icon(Icons.close),
+          label: Text('Deletable', style: TextStyle(fontSize: 14)),
+          onDeleted: null,
+          deleteIcon: Icon(Icons.close, size: 18),
         ),
-        const ActionChip(label: Text('Action'), avatar: Icon(Icons.touch_app), onPressed: null),
-        const FilterChip(label: Text('Filter'), selected: true, onSelected: null),
-        const ChoiceChip(
-          label: Text('Choice'),
+        ActionChip(
+          label: Text('Action', style: TextStyle(fontSize: 14)),
+          avatar: Icon(Icons.touch_app, size: 16),
+          onPressed: null,
+        ),
+        FilterChip(
+          label: Text('Filter', style: TextStyle(fontSize: 14)),
+          selected: true,
+          onSelected: null,
+        ),
+        ChoiceChip(
+          label: Text('Choice', style: TextStyle(fontSize: 14)),
           selected: false,
           onSelected: null,
         ),
@@ -295,18 +307,26 @@ class DisplayWidgetsScreen extends StatelessWidget {
   }
 
   Widget _buildBadgeExample() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return const Wrap(
+      alignment: WrapAlignment.spaceEvenly,
+      spacing: 16,
+      runSpacing: 8,
       children: [
-        Badge(label: const Text('3'), child: const Icon(Icons.notifications)),
         Badge(
-          label: const Text('NEW'),
-          child: ElevatedButton(onPressed: () {}, child: const Text('Button')),
+          label: Text('3', style: TextStyle(fontSize: 12)),
+          child: Icon(Icons.notifications, size: 24),
+        ),
+        Badge(
+          label: Text('NEW', style: TextStyle(fontSize: 12)),
+          child: ElevatedButton(
+            onPressed: null,
+            child: Text('Button', style: TextStyle(fontSize: 14)),
+          ),
         ),
         Badge(
           backgroundColor: Colors.red,
-          label: const Text('99+'),
-          child: const Icon(Icons.mail),
+          label: Text('99+', style: TextStyle(fontSize: 12)),
+          child: Icon(Icons.mail, size: 24),
         ),
       ],
     );
@@ -315,11 +335,11 @@ class DisplayWidgetsScreen extends StatelessWidget {
   Widget _buildDividerExample() {
     return const Column(
       children: [
-        Text('First item'),
+        Text('First item', style: TextStyle(fontSize: 16)),
         Divider(height: 32, thickness: 2),
-        Text('Second item'),
+        Text('Second item', style: TextStyle(fontSize: 16)),
         Divider(height: 32, thickness: 2, indent: 20, endIndent: 20),
-        Text('Third item'),
+        Text('Third item', style: TextStyle(fontSize: 16)),
       ],
     );
   }

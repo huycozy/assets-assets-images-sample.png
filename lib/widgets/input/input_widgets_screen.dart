@@ -14,6 +14,8 @@ class _InputWidgetsScreenState extends State<InputWidgetsScreen> {
   double _sliderValue = 0.5;
   String _radioValue = 'option1';
   bool _isPasswordVisible = false;
+  String? _dropdownValue;
+  String? _dropdownMenuValue;
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +75,24 @@ class _InputWidgetsScreenState extends State<InputWidgetsScreen> {
             'A slider widget.',
             _buildSliderExample(),
           ),
+          _buildWidgetSection(
+            context,
+            'DropdownButton',
+            'A material design dropdown button for selecting from a list of items.',
+            _buildDropdownButtonExample(),
+          ),
+          _buildWidgetSection(
+            context,
+            'DropdownMenu',
+            'A dropdown menu that allows users to select from a list of options.',
+            _buildDropdownMenuExample(),
+          ),
+          _buildWidgetSection(
+            context,
+            'SearchAnchor',
+            'A search view that can be anchored to a bar or other widget.',
+            _buildSearchAnchorExample(),
+          ),
         ],
       ),
     );
@@ -101,13 +121,15 @@ class _InputWidgetsScreenState extends State<InputWidgetsScreen> {
             Text(description, style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 16),
             Container(
-              width: double.infinity,
+              constraints: const BoxConstraints(
+                maxHeight: 400.0,
+              ),
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: example,
+              child: IntrinsicHeight(child: example),
             ),
           ],
         ),
@@ -120,16 +142,20 @@ class _InputWidgetsScreenState extends State<InputWidgetsScreen> {
       children: [
         TextField(
           controller: _textController,
+          style: const TextStyle(fontSize: 16.0),
           decoration: const InputDecoration(
             labelText: 'Enter text',
             hintText: 'Type something...',
             border: OutlineInputBorder(),
             prefixIcon: Icon(Icons.text_fields),
+            labelStyle: TextStyle(fontSize: 16.0),
+            hintStyle: TextStyle(fontSize: 16.0),
           ),
         ),
         const SizedBox(height: 16),
         TextField(
           obscureText: !_isPasswordVisible,
+          style: const TextStyle(fontSize: 16.0),
           decoration: InputDecoration(
             labelText: 'Password',
             hintText: 'Enter password',
@@ -145,6 +171,8 @@ class _InputWidgetsScreenState extends State<InputWidgetsScreen> {
                 });
               },
             ),
+            labelStyle: const TextStyle(fontSize: 16.0),
+            hintStyle: const TextStyle(fontSize: 16.0),
           ),
         ),
       ],
@@ -160,13 +188,16 @@ class _InputWidgetsScreenState extends State<InputWidgetsScreen> {
               const SnackBar(content: Text('Elevated Button Pressed!')),
             );
           },
-          child: const Text('Elevated Button'),
+          child: const Text(
+            'Elevated Button',
+            style: TextStyle(fontSize: 16.0),
+          ),
         ),
         const SizedBox(height: 8),
         ElevatedButton.icon(
           onPressed: () {},
           icon: const Icon(Icons.add),
-          label: const Text('Add Item'),
+          label: const Text('Add Item', style: TextStyle(fontSize: 16.0)),
         ),
       ],
     );
@@ -181,13 +212,13 @@ class _InputWidgetsScreenState extends State<InputWidgetsScreen> {
               const SnackBar(content: Text('Text Button Pressed!')),
             );
           },
-          child: const Text('Text Button'),
+          child: const Text('Text Button', style: TextStyle(fontSize: 16.0)),
         ),
         const SizedBox(height: 8),
         TextButton.icon(
           onPressed: () {},
           icon: const Icon(Icons.download),
-          label: const Text('Download'),
+          label: const Text('Download', style: TextStyle(fontSize: 16.0)),
         ),
       ],
     );
@@ -202,13 +233,16 @@ class _InputWidgetsScreenState extends State<InputWidgetsScreen> {
               const SnackBar(content: Text('Outlined Button Pressed!')),
             );
           },
-          child: const Text('Outlined Button'),
+          child: const Text(
+            'Outlined Button',
+            style: TextStyle(fontSize: 16.0),
+          ),
         ),
         const SizedBox(height: 8),
         OutlinedButton.icon(
           onPressed: () {},
           icon: const Icon(Icons.share),
-          label: const Text('Share'),
+          label: const Text('Share', style: TextStyle(fontSize: 16.0)),
         ),
       ],
     );
@@ -217,7 +251,7 @@ class _InputWidgetsScreenState extends State<InputWidgetsScreen> {
   Widget _buildSwitchExample() {
     return Row(
       children: [
-        const Text('Enable notifications'),
+        const Text('Enable notifications', style: TextStyle(fontSize: 16.0)),
         const Spacer(),
         Switch(
           value: _switchValue,
@@ -242,7 +276,12 @@ class _InputWidgetsScreenState extends State<InputWidgetsScreen> {
             });
           },
         ),
-        const Text('I agree to the terms and conditions'),
+        Expanded(
+          child: const Text(
+            'I agree to the terms and conditions',
+            style: TextStyle(fontSize: 16.0),
+          ),
+        ),
       ],
     );
   }
@@ -261,7 +300,7 @@ class _InputWidgetsScreenState extends State<InputWidgetsScreen> {
                 });
               },
             ),
-            const Text('Option 1'),
+            const Text('Option 1', style: TextStyle(fontSize: 16.0)),
           ],
         ),
         Row(
@@ -275,7 +314,7 @@ class _InputWidgetsScreenState extends State<InputWidgetsScreen> {
                 });
               },
             ),
-            const Text('Option 2'),
+            const Text('Option 2', style: TextStyle(fontSize: 16.0)),
           ],
         ),
         Row(
@@ -289,7 +328,7 @@ class _InputWidgetsScreenState extends State<InputWidgetsScreen> {
                 });
               },
             ),
-            const Text('Option 3'),
+            const Text('Option 3', style: TextStyle(fontSize: 16.0)),
           ],
         ),
       ],
@@ -299,7 +338,10 @@ class _InputWidgetsScreenState extends State<InputWidgetsScreen> {
   Widget _buildSliderExample() {
     return Column(
       children: [
-        Text('Value: ${(_sliderValue * 100).round()}%'),
+        Text(
+          'Value: ${(_sliderValue * 100).round()}%',
+          style: const TextStyle(fontSize: 16.0),
+        ),
         Slider(
           value: _sliderValue,
           onChanged: (value) {
@@ -311,6 +353,77 @@ class _InputWidgetsScreenState extends State<InputWidgetsScreen> {
           label: '${(_sliderValue * 100).round()}%',
         ),
       ],
+    );
+  }
+
+  Widget _buildDropdownButtonExample() {
+    final List<String> items = [
+      'Apple',
+      'Banana',
+      'Orange',
+      'Grape',
+      'Strawberry',
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        DropdownButton<String>(
+          value: _dropdownValue,
+          hint: const Text('Select a fruit', style: TextStyle(fontSize: 16.0)),
+          isExpanded: true,
+          items: items.map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value, style: const TextStyle(fontSize: 16.0)),
+            );
+          }).toList(),
+          onChanged: (String? newValue) {
+            setState(() {
+              _dropdownValue = newValue;
+            });
+          },
+        ),
+        if (_dropdownValue != null) ...[
+          const SizedBox(height: 8),
+          Text(
+            'Selected: $_dropdownValue',
+            style: const TextStyle(fontSize: 16.0),
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildDropdownMenuExample() {
+    final List<String> menuItems = ['Red', 'Green', 'Blue', 'Yellow', 'Purple'];
+
+    return DropdownMenu<String>(
+      initialSelection: _dropdownMenuValue ?? menuItems.first,
+      controller: TextEditingController(),
+      requestFocusOnTap: true,
+      label: const Text('Color', style: TextStyle(fontSize: 16.0)),
+      onSelected: (String? value) {
+        setState(() {
+          _dropdownMenuValue = value;
+        });
+      },
+      dropdownMenuEntries: menuItems.map((String value) {
+        return DropdownMenuEntry<String>(value: value, label: value);
+      }).toList(),
+    );
+  }
+
+  Widget _buildSearchAnchorExample() {
+    return SearchAnchor.bar(
+      suggestionsBuilder: (BuildContext context, SearchController controller) {
+        return List<Widget>.generate(5, (int index) {
+          return ListTile(
+            titleAlignment: ListTileTitleAlignment.center,
+            title: Text('Initial list item $index'),
+          );
+        });
+      },
     );
   }
 
